@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import requests
 
 app = Flask(__name__)
 
@@ -28,6 +29,19 @@ students = [
 def students_list():
     return jsonify(students)
 
+@app.route('/students/restapi')
+def students_restapi():
+    import requests
+
+url = "https://rest-api-35p4.onrender.com/students-list"
+
+payload = {}
+headers = {}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+response.json()
+
 @app.route('/students/get/<int:id>')
 def get_student(id):
     # Use global variable students
@@ -39,3 +53,6 @@ def get_student(id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
